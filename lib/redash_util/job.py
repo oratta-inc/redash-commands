@@ -2,21 +2,21 @@
 u"""
 以下クラスを提供するモジュール。
 
-* RedashJob
-  └ NullRedashJob
-* RedashJobStatus
-* RedashJobManager
-  └ NullRedashJobManager
+* Job
+  └ NullJob
+* JobStatus
+* JobManager
+  └ NullJobManager
 """
 
 from enum import IntEnum
 from typing import List, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from .redash_query_result import RedashQueryResult
+    from .query_result import QueryResult
 
 
-class RedashJob:
+class Job:
     u"""Redash上でクエリを実行した際に発行されるジョブを表すクラス。"""
 
     def __init__(self, job_id: str='', query_id: int=0) -> None:
@@ -36,7 +36,7 @@ class RedashJob:
         """
         pass
 
-    def get_result(self) -> RedashQueryResult:
+    def get_result(self) -> QueryResult:
         u"""
         このジョブが成功した場合に、クエリの実行結果を保持するオブジェクトを返す。
 
@@ -49,21 +49,21 @@ class RedashJob:
         pass
 
 
-class NullRedashJob(RedashJob):
+class NullJob(Job):
     def __init__(self, job_id: str='', query_id: int=0) -> None:
         pass
 
     def update(self) -> int:
-        return RedashJobStatus.null
+        return JobStatus.null
 
-    def get_result(self) -> RedashQueryResult:
+    def get_result(self) -> QueryResult:
         pass
 
     def kill(self) -> None:
         pass
 
 
-class RedashJobStatus(IntEnum):
+class JobStatus(IntEnum):
     u"""
     Redash上のジョブの状態を表すEnumクラス。
 
@@ -79,10 +79,10 @@ class RedashJobStatus(IntEnum):
     failure = 4
 
 
-class RedashJobManager:
+class JobManager:
     u"""Redash上のジョブをまとめて管理するクラス。"""
 
-    def __init__(self, job_list: List[RedashJob]=[]) -> None:
+    def __init__(self, job_list: List[Job]=[]) -> None:
         u"""
         コンストラクタ。
 
@@ -90,7 +90,7 @@ class RedashJobManager:
         """
         pass
 
-    def add(self, job_list: List[RedashJob]) -> None:
+    def add(self, job_list: List[Job]) -> None:
         u"""
         このインスタンスに、ジョブ配列を追加する。
 
@@ -124,7 +124,7 @@ class RedashJobManager:
         """
         pass
 
-    def get_query_result_list(self) -> List[RedashQueryResult]:
+    def get_query_result_list(self) -> List[QueryResult]:
         u"""
         ステータスが成功のジョブに対応する、ジョブ結果配列を返す。
 
@@ -133,12 +133,12 @@ class RedashJobManager:
         pass
 
 
-class NullRedashJobManager(RedashJobManager):
+class NullJobManager(JobManager):
 
-    def __init__(self, job_list: List[RedashJob]=[]) -> None:
+    def __init__(self, job_list: List[Job]=[]) -> None:
         pass
 
-    def add(self, job_list: List[RedashJob]) -> None:
+    def add(self, job_list: List[Job]) -> None:
         pass
 
     def update(self, async: bool=False) -> None:
@@ -150,5 +150,5 @@ class NullRedashJobManager(RedashJobManager):
     def finished(self) -> bool:
         pass
 
-    def get_query_result_list(self) -> List[RedashQueryResult]:
+    def get_query_result_list(self) -> List[QueryResult]:
         pass

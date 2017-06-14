@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
 u"""Redash関連のユーティリティクラスをまとめたモジュール。"""
 
-from .redash_connection_info import RedashConnectionInfo
-from .redash_exceptions import \
+from .connection_info import ConnectionInfo
+from .exceptions import \
     RedashException, \
     RedashJobException, \
     RedashJobFailureException
-from .redash_job import NullRedashJob, RedashJob, RedashJobStatus
-from .redash_query import \
-    NullRedashQuery, \
-    NullRedashQueryList, \
-    RedashQuery, \
-    RedashQueryList
-from .redash_query_result import NullRedashQueryResult, RedashQueryResult
+from .job import Job, JobStatus, NullJob
+from .query import NullQuery, NullQueryList, Query, QueryList
+from .query_result import NullQueryResult, QueryResult
