@@ -3,7 +3,6 @@ u"""
 以下クラスを提供するモジュール。
 
 * QueryResult
-  └NullQueryResult
 """
 
 from typing import TYPE_CHECKING
@@ -30,12 +29,4 @@ class QueryResult:
         :param file_path: ファイルのパス。
         :param file_format: ファイルフォーマット。
         """
-        pass
-
-
-class NullQueryResult(QueryResult):
-    def __init__(self, job: Job) -> None:
-        pass
-
-    def serialize(self, file_path: str, file_format: str) -> None:
         pass

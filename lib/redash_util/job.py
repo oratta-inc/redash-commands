@@ -3,10 +3,8 @@ u"""
 以下クラスを提供するモジュール。
 
 * Job
-  └ NullJob
 * JobStatus
 * JobManager
-  └ NullJobManager
 """
 
 from enum import IntEnum
@@ -46,20 +44,6 @@ class Job:
 
     def kill(self) -> None:
         u"""RedashサーバとAPI疎通し、ジョブの実行を停止する。"""
-        pass
-
-
-class NullJob(Job):
-    def __init__(self, job_id: str='', query_id: int=0) -> None:
-        pass
-
-    def update(self) -> int:
-        return JobStatus.null
-
-    def get_result(self) -> QueryResult:
-        pass
-
-    def kill(self) -> None:
         pass
 
 
@@ -130,25 +114,4 @@ class JobManager:
 
         :return: ジョブ結果配列。
         """
-        pass
-
-
-class NullJobManager(JobManager):
-
-    def __init__(self, job_list: List[Job]=[]) -> None:
-        pass
-
-    def add(self, job_list: List[Job]) -> None:
-        pass
-
-    def update(self, async: bool=False) -> None:
-        pass
-
-    def count(self, job_status: int) -> int:
-        pass
-
-    def finished(self) -> bool:
-        pass
-
-    def get_query_result_list(self) -> List[QueryResult]:
         pass

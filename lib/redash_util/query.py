@@ -3,9 +3,7 @@ u"""
 以下クラスを提供するモジュール。
 
 * Query
-  └ NullQuery
 * QueryList
-  └ NullQueryList
 """
 
 from typing import Dict, List, TYPE_CHECKING
@@ -106,49 +104,6 @@ class Query:
         pass
 
 
-class NullQuery(Query):
-
-    def __init__(
-        self,
-        query_id: int=0,
-        connection_info: ConnectionInfo=None
-    ) -> None:
-        pass
-
-    def read(self) -> None:
-        pass
-
-    def update(self) -> None:
-        pass
-
-    def execute(self) -> Job:
-        pass
-
-    def fork(self) -> Query:
-        pass
-
-    def archive(self) -> None:
-        pass
-
-    def set_properties(self, properties: Dict) -> None:
-        pass
-
-    def bind_values(self, key_and_values: Dict) -> None:
-        pass
-
-    def unbind_values(self) -> None:
-        pass
-
-    def is_bound(self) -> bool:
-        pass
-
-    def serialize(self, file_path: str, file_format: str) -> None:
-        pass
-
-    def deserialize(self, file_path: str, file_format: str) -> None:
-        pass
-
-
 class QueryList:
     u"""Redash上のクエリを表すクラス。"""
 
@@ -216,44 +171,4 @@ class QueryList:
         :param file_format: ファイルフォーマット。
         :param read_recursively: Trueの場合、指定したディレクトリ以下を再帰的に走査する。
         """
-        pass
-
-
-class NullQueryList:
-    def __init__(self, connection_info: ConnectionInfo=None) -> None:
-        pass
-
-    def search_queries_by(self, text: str) -> List[Query]:
-        pass
-
-    def create_query(self, properties) -> Query:
-        pass
-
-    def read_in_bulk(self) -> None:
-        pass
-
-    def update_in_bulk(self) -> None:
-        pass
-
-    def execute_in_bulk(self) -> List[Job]:
-        pass
-
-    def archive_in_bulk(self) -> None:
-        pass
-
-    def bind_values_in_bulk(self, key_and_values: Dict) -> None:
-        pass
-
-    def unbind_values_in_bulk(self) -> None:
-        pass
-
-    def serialize_in_bulk(self, dir_path: str, file_format: str) -> None:
-        pass
-
-    def deserialize_in_bulk(
-        self,
-        dir_path: str,
-        file_format: str,
-        read_recursively: bool=True
-    ) -> None:
         pass
