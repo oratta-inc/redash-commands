@@ -19,7 +19,7 @@ class Query:
     def __init__(
         self,
         query_id: int=0,
-        connection_info: ConnectionInfo=None
+        connection_info: 'ConnectionInfo'=None
     ) -> None:
         u"""
         コンストラクタ。
@@ -37,7 +37,7 @@ class Query:
         u"""RedashサーバとAPI疎通し、このインスタンスに紐づくクエリのプロパティを更新する。"""
         pass
 
-    def execute(self) -> Job:
+    def execute(self) -> 'Job':
         u"""
         RedashサーバとAPI疎通し、クエリを再実行する。
 
@@ -45,7 +45,7 @@ class Query:
         """
         pass
 
-    def fork(self) -> Query: # noqa
+    def fork(self) -> 'Query':
         u"""
         RedashサーバとAPI疎通し、Redash上にこのクエリのコピーを作成する。
 
@@ -107,13 +107,13 @@ class Query:
 class QueryList:
     u"""Redash上のクエリを表すクラス。"""
 
-    def __init__(self, connection_info: ConnectionInfo=None) -> None:
+    def __init__(self, connection_info: 'ConnectionInfo'=None) -> None:
         pass
 
-    def search_queries_by(self, text: str) -> List[Query]:
+    def search_queries_by(self, text: str) -> List['Query']:
         pass
 
-    def create_query(self, properties) -> Query:
+    def create_query(self, properties) -> 'Query':
         pass
 
     def read_in_bulk(self) -> None:
@@ -124,7 +124,7 @@ class QueryList:
         u"""RedashサーバとAPI疎通し、各クエリのプロパティを更新する。"""
         pass
 
-    def execute_in_bulk(self) -> List[Job]:
+    def execute_in_bulk(self) -> List['Job']:
         u"""
         RedashサーバとAPI疎通し、各クエリを実行する。
 

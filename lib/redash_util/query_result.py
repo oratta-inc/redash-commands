@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class QueryResult:
     u"""Redashでのクエリ実行結果を保持するクラス。"""
 
-    def __init__(self, job: Job) -> None:
+    def __init__(self, job: 'Job') -> None:
         u"""
         コンストラクタ。
 

@@ -34,7 +34,7 @@ class Job:
         """
         pass
 
-    def get_result(self) -> QueryResult:
+    def get_result(self) -> 'QueryResult':
         u"""
         このジョブが成功した場合に、クエリの実行結果を保持するオブジェクトを返す。
 
@@ -66,7 +66,7 @@ class JobStatus(IntEnum):
 class JobManager:
     u"""Redash上のジョブをまとめて管理するクラス。"""
 
-    def __init__(self, job_list: List[Job]=[]) -> None:
+    def __init__(self, job_list: List['Job']=[]) -> None:
         u"""
         コンストラクタ。
 
@@ -74,7 +74,7 @@ class JobManager:
         """
         pass
 
-    def add(self, job_list: List[Job]) -> None:
+    def add(self, job_list: List['Job']) -> None:
         u"""
         このインスタンスに、ジョブ配列を追加する。
 
@@ -108,7 +108,7 @@ class JobManager:
         """
         pass
 
-    def get_query_result_list(self) -> List[QueryResult]:
+    def get_query_result_list(self) -> List['QueryResult']:
         u"""
         ステータスが成功のジョブに対応する、ジョブ結果配列を返す。
 
