@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 class Job:
     u"""Redash上でクエリを実行した際に発行されるジョブを表すクラス。"""
 
-    def __init__(self, job_id: str='', query_id: int=0) -> None:
+    def __init__(self, job_id: str=u'', query_id: int=0) -> None:
         u"""
         コンストラクタ。
 

@@ -9,7 +9,7 @@ u"""
 class ConnectionInfo:
     u"""Redashサーバとの接続時の情報を凝集・カプセル化するためのクラス。"""
 
-    def __init__(self, end_point: str='', api_key: str='') -> None:
+    def __init__(self, end_point: str=u'', api_key: str=u'') -> None:
         u"""
         コンストラクタ。
 
