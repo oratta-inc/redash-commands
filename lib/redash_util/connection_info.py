@@ -18,3 +18,19 @@ class ConnectionInfo:
         """
         self.end_point = end_point
         self.api_key   = api_key
+
+    def get_end_point(self) -> str:
+        u"""
+        接続時のエンドポイントを返す。
+
+        :return: 接続時のエンドポイント。
+        """
+        return self.end_point
+
+    def get_api_key(self) -> str:
+        u"""
+        APIキーを返す。
+
+        :return: APIキー。
+        """
+        return self.api_key
