@@ -85,3 +85,58 @@
     }
 }
 ```
+
+#### QueryResultオブジェクト
+```json
+{
+    "query_result":{
+        "retrieved_at":"2017-06-21T17:15:10.827623+09:00",
+        "data_source_id":1,
+        "id":1072,
+        "data":{
+            "columns":[
+                 {
+                    "friendly_name":"user_agent",
+                    "name":"user_agent",
+                    "type":"integer"
+                 },
+                 {
+                    "friendly_name":"date",
+                    "name":"date",
+                    "type":"string"
+                 },
+                 {
+                    "friendly_name":"purchase_amount_sum",
+                    "name":"purchase_amount_sum",
+                    "type":"integer"
+                 }
+            ],
+            "rows":[
+                {
+                   "purchase_amount_sum":2052960,
+                   "user_agent":0,
+                   "date":"2017-06-02"
+                },
+                {
+                   "purchase_amount_sum":6091040,
+                   "user_agent":0,
+                   "date":"2017-06-01"
+                },
+                {
+                   "purchase_amount_sum":4122840,
+                   "user_agent":1,
+                   "date":"2017-06-02"
+                },
+                {
+                   "purchase_amount_sum":12024040,
+                   "user_agent":1,
+                   "date":"2017-06-01"
+                }
+            ]
+        },
+        "query_hash":"48fc6c1a24b1b48a012542de33aeed75",
+        "query":"SELECT user_agent, date, purchase_amount_sum\nFROM purchase_amount__daily\nWHERE TD_TIME_RANGE(TD_TIME_PARSE(date,"JST"), "2017-06-01 00:00:00", "2017-06-03 00:00:00", "JST")\nAND user_agent >= 0 AND user_agent <= 2\nORDER BY user_agent, date DESC;",
+        "runtime":41.8847768306732
+    }
+}
+```
