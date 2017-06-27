@@ -154,6 +154,45 @@ class Gateway:
             params={u'q': text}
         )
 
+    def update_job_status(self, job_id: str) -> 'Response':
+        u"""
+        サーバと疎通し、引数で指定したidのJobを更新する。
+
+        :param job_id:
+        :return:
+        """
+        return self.__request(
+            get,
+            self.__make_url(u'/api/jobs/' + job_id),
+            headers=self.__make_headers()
+        )
+
+    def get_query_result(self, query_result_id: int) -> 'Response':
+        u"""
+        サーバと疎通し、引数で指定したidのQueryResultを返す。
+
+        :param query_result_id:
+        :return:
+        """
+        return self.__request(
+            get,
+            self.__make_url(u'/api/query_results/' + str(query_result_id)),
+            headers=self.__make_headers()
+        )
+
+    def kill_job(self, job_id: str) -> 'Response':
+        u"""
+        サーバと疎通し、引数で指定したidのジョブの実行を停止する。
+
+        :param job_id:
+        :return:
+        """
+        return self.__request(
+            delete,
+            self.__make_url(u'/api/jobs/' + job_id),
+            headers=self.__make_headers()
+        )
+
     def __make_url(self, url: str) -> str:
         u"""
         サーバと疎通するためのurlを生成する。

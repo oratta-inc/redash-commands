@@ -6,6 +6,6 @@ from .exceptions import \
     RedashException, \
     RedashJobException, \
     RedashJobFailureException
-from .job import Job, JobStatus
+from .job import Job, JobManager, JobStatus
 from .query import Query, QueryList
-from .query_result import QueryResult
+from .query_result import NullQueryResult, QueryResult
