@@ -1,0 +1,5 @@
+[run]
+# python標準ライブラリと、サードパーティ製ライブラリを除外する。
+omit = */python*/*,*/site-packages/*
+# このプロジェクトのうち、libディレクトリ以下のソースをテスト対象とする。
+include = */lib/*
