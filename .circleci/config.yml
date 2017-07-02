@@ -1,0 +1,37 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/redash-commands
+    # Docker Hub上の、以下バージョンの環境でCIを実行する。
+    docker:
+      - image: circleci/python:3.5.3
+    steps:
+      - checkout
+      # キャッシュしているファイル・ディレクトリがあれば復元する。
+      - restore_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+      - run:
+          command: |
+            # ci_envという名称の仮想環境を作成し、有効にする。
+            python3 -m venv ci_env
+            source ci_env/bin/activate
+            # 仮想環境上で、requirements.txtに記載されたライブラリをインストールする。
+            pip install -r requirements.txt
+      - save_cache:
+          # ci_envディレクトリ以下のファイルについては、現在のrequirements.txtファイルの内容でキャッシュを作成。
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          paths:
+            - "ci_env"
+      - run:
+          command: |
+            # テストを実行する。
+            source ci_env/bin/activate
+            coverage run tests/test.py
+            # カバレッジを、html・xmlの形式で出力する。
+            coverage html
+            coverage xml
+      # 出力されたhtml・xml形式のカバレッジレポートを、Artifactとして保存する。
+      - store_artifacts:
+          path: ~/redash-commands/htmlcov
+      - store_artifacts:
+          path: ~/redash-commands/coverage.xml
