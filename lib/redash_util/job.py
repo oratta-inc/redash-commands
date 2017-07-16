@@ -22,7 +22,8 @@ class Job:
         self,
         job_id: str=u'',
         query_id: int=0,
-        connection_info: 'ConnectionInfo'=None
+        connection_info: 'ConnectionInfo'=None,
+        query_name: str=u''
     ) -> None:
         u"""
         コンストラクタ。
@@ -30,9 +31,11 @@ class Job:
         :param job_id: このジョブを一意に識別するid(ハッシュ値)。
         :param query_id: このジョブに対応するクエリのid。
         :param connection_info: 接続情報を保持するオブジェクト。
+        :param query_name: 対応するクエリの名称。
         """
         self.id = job_id
         self.query_id = query_id
+        self.query_name = query_name
 
         # その他のプロパティに、デフォルト値を設定しておく。
         self.status = JobStatus.pending
@@ -72,7 +75,12 @@ class Job:
         """
         if self.status == JobStatus.success:
             response = self.__gateway.get_query_result(self.query_result_id)
-            return QueryResult(response.json()[u'query_result'])
+            query_result_dict = response.json()[u'query_result']
+
+            # QueryResult側でクエリ名を知りたいことがあるため、追加で設定しておく。
+            query_result_dict[u'query_name'] = self.query_name
+
+            return QueryResult(query_result_dict)
         else:
             return NullQueryResult({})
 

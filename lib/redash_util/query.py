@@ -76,7 +76,11 @@ class Query:
         :return: クエリの実行状態を保持するJobクラス。
         """
         response = self.__gateway.execute_query(self.id)
-        return Job(query_id=self.id, job_id=response.json()[u'job'][u'id'])
+        return Job(
+            job_id=response.json()[u'job'][u'id'],
+            query_id=self.id,
+            connection_info=self.__gateway.get_connection_info(),
+            query_name=self.name)
 
     def fork(self) -> 'Query':
         u"""
@@ -87,7 +91,8 @@ class Query:
         response = self.__gateway.fork_query(self.id)
 
         # 新規にQueryオブジェクトを作成して返す。
-        fork_query = Query(connection_info=self.__gateway.get_connection_info())
+        fork_query = Query(
+            connection_info=self.__gateway.get_connection_info())
         fork_query.set_properties(response.json())
         return fork_query
 
@@ -99,7 +104,7 @@ class Query:
         """
         self.__gateway.archive_query(self.id)
 
-    def set_properties(self, properties: Dict) -> None:
+    def set_properties(self, properties: Dict[str, Any]) -> None:
         u"""
         このインスタンスに、プロパティをまとめてセットする。
 
@@ -320,13 +325,36 @@ class QueryList:
 
         :return: ジョブのリスト。
         """
+        jobs = []
         for query in self.__queries:
-            query.execute()
+            job = query.execute()
+            jobs.append(job)
+        return jobs
+
+    def fork_in_bulk(self) -> List['Query']:
+        u"""
+        RedashサーバとAPI疎通し、各クエリをフォークする。
+
+        :return: フォークしたクエリのリスト。
+        """
+        fork_queries = []
+        for query in self.__queries:
+            fork_queries.append(query.fork())
+        return fork_queries
 
     def archive_in_bulk(self) -> None:
         u"""RedashサーバとAPI疎通し、各クエリを削除(アーカイブ)する。"""
         for query in self.__queries:
             query.archive()
+
+    def set_properties_in_bulk(self, properties: Dict[str, Any]) -> None:
+        u"""
+        各クエリに、引数で渡したプロパティをセットする。
+
+        :param properties: プロパティ名と値をまとめた辞書。
+        """
+        for query in self.__queries:
+            query.set_properties(properties)
 
     def bind_values_in_bulk(self, key_and_values: Dict) -> None:
         u"""

@@ -4,6 +4,7 @@ u"""
 
 * Gateway
 """
+from json import dumps
 from typing import Any, Callable, Dict
 
 from requests import Response, delete, get, post
@@ -84,7 +85,7 @@ class Gateway:
             post,
             self.__make_url(u'/api/queries/' + str(query_id)),
             headers=self.__make_headers(contents_type=u'json'),
-            data=properties
+            data=dumps(properties)
         )
 
     def execute_query(self, query_id: int) -> 'Response':
@@ -149,7 +150,7 @@ class Gateway:
         """
         return self.__request(
             get,
-            self.__make_url(u'/api/queries/'),
+            self.__make_url(u'/api/queries/search'),
             headers=self.__make_headers(),
             params={u'q': text}
         )

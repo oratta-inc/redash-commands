@@ -34,6 +34,14 @@ class QueryResult:
         with open(file_path, u'w') as file:
             file.write(self.__make_csv_serialize_data())
 
+    def get_query_name(self) -> str:
+        u"""
+        このインスタンスに対応するQueryオブジェクトの名前を返す。
+
+        :return:
+        """
+        return getattr(self, u'query_name', u'')
+
     def __check_file_format_and_raise_exception(
         self, file_format: str
     ) -> None:
@@ -119,3 +127,11 @@ class NullQueryResult(QueryResult):
         :param file_format: ファイルフォーマット。
         """
         pass
+
+    def get_query_name(self) -> str:
+        u"""
+        Nullオブジェクトなので、空文字列を返す。
+
+        :return:
+        """
+        return u''
